@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+import halit.education.com.educationfirst.model.AdapterItem;
+
 public class MainActivity extends AppCompatActivity {
 //TODO buraya bak guncellendımı
     @Override
@@ -12,15 +14,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //TODO Bunnları ben yapdım sımdı
-        ArrayList<String> benimListem=benimListemiGetir();
+        ArrayList<AdapterItem> benimListem=benimListemiGetir();
     }
 
 
 
 
 
-    public ArrayList<String> benimListemiGetir(){
-        ArrayList<String> dataList=new ArrayList<>();
+    public ArrayList<AdapterItem> benimListemiGetir(){
+        ArrayList<AdapterItem> dataList=new ArrayList<>();
         return dataList;
     }
 }
