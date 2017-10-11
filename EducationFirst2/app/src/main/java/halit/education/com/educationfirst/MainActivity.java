@@ -18,6 +18,12 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<AdapterItem> benimListem=benimListemiGetir();
     }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> f8f0365decceda1ff68777273b9b299baf43ca3c
     public ArrayList<AdapterItem> benimListemiGetir(){
         ArrayList<AdapterItem> dataList=new ArrayList<>();
         return dataList;
