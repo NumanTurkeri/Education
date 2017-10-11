@@ -14,12 +14,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //TODO Bunnları ben yapdım sımdı
+        //TODO Simdi umararim olur :)
         ArrayList<AdapterItem> benimListem=benimListemiGetir();
     }
-
-
-
-
 
     public ArrayList<AdapterItem> benimListemiGetir(){
         ArrayList<AdapterItem> dataList=new ArrayList<>();
