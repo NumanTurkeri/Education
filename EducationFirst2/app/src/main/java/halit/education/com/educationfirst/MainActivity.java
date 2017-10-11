@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     public ArrayList<AdapterItem> benimListemiGetir(){
         ArrayList<AdapterItem> dataList=new ArrayList<>();
         return dataList;
