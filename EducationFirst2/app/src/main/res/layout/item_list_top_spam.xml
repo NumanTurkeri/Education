@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
     <TextView
+        android:id="@+id/compannNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="asdasdasdadasdasdasd"
+        android:textColor="@color/colorAccent" />
 
-        android:id="@+id/compannNameTxt"/>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/compannNameTxt"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
 </RelativeLayout>

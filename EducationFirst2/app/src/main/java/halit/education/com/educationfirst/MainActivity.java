@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     CompanyAdapter adapter;
 
+    ArrayList<AdapterItem> adapterItems=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.descTxt);
         listView = (ListView) findViewById(R.id.listView);
-        ArrayList<AdapterItem> benimListem = benimListemiGetir();
-        adapter = new CompanyAdapter(this, benimListem);
+
+        adapter = new CompanyAdapter(this, adapterItems);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 String firmaAdi = mEmail.getText().toString();
                 String ciro = mPassword.getText().toString();
+                //TODO burda edittexten alinan data objeye set edildi.Bu objeleri bir array liste ekledik
+                AdapterItem adapterItem=new AdapterItem();
+                adapterItem.name=firmaAdi;
+                adapterItem.totalCount=ciro;
+                adapterItems.add(adapterItem);
+                adapter.notifyDataSetChanged();
+                checkSize();
+
             }
         });
 
@@ -87,21 +96,17 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setView(mView);
         final AlertDialog dialog = mBuilder.create();
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
 
-                if (!mPassword.getText().toString().isEmpty()) {
-                    Toast.makeText(MainActivity.this, R.string.success_login_msg, Toast.LENGTH_SHORT).show();
-
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(MainActivity.this, R.string.error_login_msg, Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
+    }
+    public void checkSize(){
+        if (adapter.getCount()>0){
+            listView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            listView.setAdapter(adapter);
+        }else {
+            listView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+        }
     }
 }
