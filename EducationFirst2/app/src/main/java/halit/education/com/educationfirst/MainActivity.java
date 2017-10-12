@@ -2,15 +2,14 @@ package halit.education.com.educationfirst;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,66 +21,25 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     CompanyAdapter adapter;
 
+    ArrayList<AdapterItem> adapterItems=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button mShowDialog = (Button) findViewById(R.id.btnShowDialog);
-
-        mShowDialog.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_login,null);
-                final EditText mEmail = (EditText) mView.findViewById(R.id.Firma);
-                final EditText mPassword = (EditText) mView.findViewById(R.id.Ciro);
-
-
-                mBuilder.setPositiveButton("Kaydet", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-
-                    }
-                });
-
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-
-                            if (!mPassword.getText().toString().isEmpty()) {
-                                Toast.makeText(MainActivity.this, R.string.success_login_msg, Toast.LENGTH_SHORT).show();
-
-                                dialog.dismiss();
-                            } else {
-                                Toast.makeText(MainActivity.this, R.string.error_login_msg, Toast.LENGTH_SHORT).show();
-                            }
-
-                    }
-                });
-
-
+                openDialog();
             }
         });
+
 
         textView = (TextView) findViewById(R.id.descTxt);
         listView = (ListView) findViewById(R.id.listView);
 
-        ArrayList<AdapterItem> benimListem = benimListemiGetir();
-
-        adapter = new CompanyAdapter(this, benimListem);
+        adapter = new CompanyAdapter(this, adapterItems);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,12 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 AdapterItem adapterItem = adapter.getItem(itemPosition);
             }
         });
-
-        //TODO adapter size ı yanı count methodu su an bizim listemiz bos oldugu ıcın bos donecek.Ole oldugu ıcınde asagıdakı kosullara gırecek
-        if (adapter.getCount()==0){
+        if (adapter.getCount() == 0) {
 
             textView.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             textView.setVisibility(View.GONE);
         }
     }
@@ -102,5 +58,53 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<AdapterItem> benimListemiGetir() {
         ArrayList<AdapterItem> dataList = new ArrayList<>();
         return dataList;
+    }
+
+    public void openDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_login, null);
+        final EditText mEmail = (EditText) mView.findViewById(R.id.Firma);
+        final EditText mPassword = (EditText) mView.findViewById(R.id.Ciro);
+
+
+        mBuilder.setPositiveButton("Kaydet", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String firmaAdi = mEmail.getText().toString();
+                String ciro = mPassword.getText().toString();
+                //TODO burda edittexten alinan data objeye set edildi.Bu objeleri bir array liste ekledik
+                AdapterItem adapterItem=new AdapterItem();
+                adapterItem.name=firmaAdi;
+                adapterItem.totalCount=ciro;
+                adapterItems.add(adapterItem);
+                adapter.notifyDataSetChanged();
+                checkSize();
+
+            }
+        });
+
+        mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+
+    }
+    public void checkSize(){
+        if (adapter.getCount()>0){
+            listView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.GONE);
+            listView.setAdapter(adapter);
+        }else {
+            listView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+        }
     }
 }

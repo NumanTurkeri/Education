@@ -37,17 +37,18 @@ public class CompanyAdapter extends ArrayAdapter<AdapterItem> {
                 null, false);
 
         TextView txtName = (TextView) view.findViewById(R.id.compannNameTxt);
+        TextView ciro = (TextView) view.findViewById(R.id.textView3);
 
         txtName.setText(reviews.name);
+        ciro.setText(reviews.totalCount);
 
         return view;
     }
 
-    static int count;
 
     @Override
     public int getCount() {
-        count = super.getCount();
+
         return super.getCount();
 
     }
