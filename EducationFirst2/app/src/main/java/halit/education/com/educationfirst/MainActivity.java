@@ -2,6 +2,7 @@ package halit.education.com.educationfirst;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,54 +28,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button mShowDialog = (Button) findViewById(R.id.btnShowDialog);
-
-        mShowDialog.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-                View mView = getLayoutInflater().inflate(R.layout.dialog_login,null);
-                final EditText mEmail = (EditText) mView.findViewById(R.id.Firma);
-                final EditText mPassword = (EditText) mView.findViewById(R.id.Ciro);
-
-
-                mBuilder.setPositiveButton("Kaydet", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-
-                mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-
-                    }
-                });
-
-                mBuilder.setView(mView);
-                final AlertDialog dialog = mBuilder.create();
-                dialog.show();
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-
-                            if (!mPassword.getText().toString().isEmpty()) {
-                                Toast.makeText(MainActivity.this, R.string.success_login_msg, Toast.LENGTH_SHORT).show();
-
-                                dialog.dismiss();
-                            } else {
-                                Toast.makeText(MainActivity.this, R.string.error_login_msg, Toast.LENGTH_SHORT).show();
-                            }
-
-                    }
-                });
-
-
+                openDialog();
             }
         });
+
 
         textView = (TextView) findViewById(R.id.descTxt);
         listView = (ListView) findViewById(R.id.listView);
@@ -87,16 +48,60 @@ public class MainActivity extends AppCompatActivity {
                 AdapterItem adapterItem = adapter.getItem(itemPosition);
             }
         });
-        //TODO adapter size ı yanı count methodu su an bizim listemiz bos oldugu ıcın bos donecek.Ole oldugu ıcınde asagıdakı kosullara gırecek
-        if (adapter.getCount()==0){
+        if (adapter.getCount() == 0) {
 
             textView.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             textView.setVisibility(View.GONE);
         }
     }
+
     public ArrayList<AdapterItem> benimListemiGetir() {
         ArrayList<AdapterItem> dataList = new ArrayList<>();
         return dataList;
+    }
+
+    public void openDialog() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog_login, null);
+        final EditText mEmail = (EditText) mView.findViewById(R.id.Firma);
+        final EditText mPassword = (EditText) mView.findViewById(R.id.Ciro);
+
+
+        mBuilder.setPositiveButton("Kaydet", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String firmaAdi = mEmail.getText().toString();
+                String ciro = mPassword.getText().toString();
+            }
+        });
+
+        mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (!mPassword.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, R.string.success_login_msg, Toast.LENGTH_SHORT).show();
+
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.error_login_msg, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 }
