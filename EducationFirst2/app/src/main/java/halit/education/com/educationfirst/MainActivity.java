@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
-
 import halit.education.com.educationfirst.controller.adapter.CompanyAdapter;
 import halit.education.com.educationfirst.model.AdapterItem;
 
@@ -22,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     ListView listView;
     CompanyAdapter adapter;
+
+    //TODO benim yeni yaptigim is bu
+
 
     ArrayList<AdapterItem> adapterItems=new ArrayList<>();
     @Override
