@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     ListView listView;
     CompanyAdapter adapter;
-
+//TODO ben numan bende yenı ıs olarka bunu yapdım 
     ArrayList<AdapterItem> adapterItems=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
