@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">EducationFirst</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="login">Login</string>
+    <string name="firma_adi">Firma Adi</string>
+    <string name="ciro">Ciro</string>
+    <string name="login_label">LOGIN</string>
+    <string name="success_login_msg">Kayit Gerceklesti</string>
+    <string name="error_login_msg">Lutfen Bos Alan birakmayin</string>
 </resources>
