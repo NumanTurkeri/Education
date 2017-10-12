@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
+
 import halit.education.com.educationfirst.controller.adapter.CompanyAdapter;
 import halit.education.com.educationfirst.model.AdapterItem;
 
