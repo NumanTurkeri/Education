@@ -7,4 +7,5 @@
     <string name="login_label">LOGIN</string>
     <string name="success_login_msg">Kayit Gerceklesti</string>
     <string name="error_login_msg">Lutfen Bos Alan birakmayin</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
