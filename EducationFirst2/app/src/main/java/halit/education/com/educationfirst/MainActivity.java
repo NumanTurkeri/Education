@@ -1,6 +1,7 @@
 package halit.education.com.educationfirst;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import halit.education.com.educationfirst.controller.activity.DetailActivity;
 import halit.education.com.educationfirst.controller.adapter.CompanyAdapter;
 import halit.education.com.educationfirst.model.AdapterItem;
 
@@ -45,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int itemPosition, long l) {
                 AdapterItem adapterItem = adapter.getItem(itemPosition);
+                //TODO Burda item click alindi.
+                Intent intent=new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("myKey",adapterItem);
+                startActivity(intent);
             }
         });
         if (adapter.getCount() == 0) {
