@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    //TODO Umarim olmustur :)
     public void SharedPrefSAVE(String Name){
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("NAME",0);
         SharedPreferences.Editor prefEDIT = prefs.edit();
