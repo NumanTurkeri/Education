@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setVisibility(View.VISIBLE);
         }
 
-
     }
     //TODO Umarim olmustur :)
     public void SharedPrefSAVE(String Name){
