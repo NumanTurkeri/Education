@@ -2,6 +2,7 @@ package halit.education.com.educationfirst;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -85,12 +86,19 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 checkSize();
 
+                SharedPrefSAVE(mEmail.getText().toString());
+                SharedPrefSAVE(mPassword.getText().toString());
+
             }
         });
 
         mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                SharedPreferences SP = getApplicationContext().getSharedPreferences("NAME",0);
+                textView.setText(SP.getString("Name",null));
+
+
                 dialogInterface.dismiss();
 
             }
@@ -111,5 +119,14 @@ public class MainActivity extends AppCompatActivity {
             listView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
         }
+
+
+    }
+    //TODO Umarim olmustur :)
+    public void SharedPrefSAVE(String Name){
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("NAME",0);
+        SharedPreferences.Editor prefEDIT = prefs.edit();
+        prefEDIT.putString("NAME",Name);
+        prefEDIT.commit();
     }
 }
