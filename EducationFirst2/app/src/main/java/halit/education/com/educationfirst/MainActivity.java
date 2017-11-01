@@ -8,7 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
- 
+
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -18,13 +18,15 @@ import java.util.ArrayList;
 
 import halit.education.com.educationfirst.controller.activity.DetailActivity;
 import halit.education.com.educationfirst.controller.adapter.CompanyAdapter;
+import halit.education.com.educationfirst.controller.managers.CustomePrefManager;
 import halit.education.com.educationfirst.model.AdapterItem;
 
 public class MainActivity extends AppCompatActivity {
     TextView textView;
     ListView listView;
     CompanyAdapter adapter;
-    ArrayList<AdapterItem> adapterItems=new ArrayList<>();
+    ArrayList<AdapterItem> adapterItems = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               openDialog ();
+                openDialog();
             }
         });
 
@@ -42,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.descTxt);
         listView = (ListView) findViewById(R.id.listView);
 
+
+        //TODO Buraya break point koy ve ne oldugunu iyi takip et lutfen.Simdi burdaki hikaye su biz uygulama acilrken once history yi alacgiz.
+        // History bos ise gene bos gocukcek ama history dolu ise artik listemiz surekli olarak uygulamada silinmeden kaybolmadan gozukebielcek
+     adapterItems=CustomePrefManager.getAllSavedData();
+     if (adapterItems==null){
+         //Todo burda null kontrolu ekledik cunku null olan bir field yada lsite ile islem yapilmaz.NUll degilse buraya girmeycek
+         adapterItems=new ArrayList<>();
+     }
         adapter = new CompanyAdapter(this, adapterItems);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int itemPosition, long l) {
                 AdapterItem adapterItem = adapter.getItem(itemPosition);
                 //TODO Burda item click alindi.
-                Intent intent=new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("myKey",adapterItem);
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("myKey", adapterItem);
                 startActivity(intent);
             }
         });
@@ -66,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<AdapterItem> dataList = new ArrayList<>();
         return dataList;
     }
+
     public void openDialog() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.dialog_login, null);
@@ -78,16 +89,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 String firmaAdi = mEmail.getText().toString();
                 String ciro = mPassword.getText().toString();
-                //TODO burda edittexten alinan data objeye set edildi.Bu objeleri bir array liste ekledik
-                AdapterItem adapterItem=new AdapterItem();
-                adapterItem.name=firmaAdi;
-                adapterItem.totalCount=ciro;
+                AdapterItem adapterItem = new AdapterItem();
+                adapterItem.name = firmaAdi;
+                adapterItem.totalCount = ciro;
                 adapterItems.add(adapterItem);
                 adapter.notifyDataSetChanged();
                 checkSize();
+                //TOdo burda zaten yukarida zaten olstrdgmz objeyi verdik.
+                SharedPrefSAVE(adapterItem);
 
-                SharedPrefSAVE(mEmail.getText().toString());
-                SharedPrefSAVE(mPassword.getText().toString());
 
             }
         });
@@ -95,9 +105,8 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                SharedPreferences SP = getApplicationContext().getSharedPreferences("NAME",0);
-                textView.setText(SP.getString("Name",null));
-
+                SharedPreferences SP = getApplicationContext().getSharedPreferences("NAME", 0);
+                textView.setText(SP.getString("Name", null));
 
                 dialogInterface.dismiss();
 
@@ -110,22 +119,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void checkSize(){
-        if (adapter.getCount()>0){
+
+    public void checkSize() {
+        if (adapter.getCount() > 0) {
             listView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
             listView.setAdapter(adapter);
-        }else {
+        } else {
             listView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
         }
 
     }
-    //TODO Umarim olmustur :)
-    public void SharedPrefSAVE(String Name){
-        SharedPreferences prefs = getApplicationContext().getSharedPreferences("NAME",0);
-        SharedPreferences.Editor prefEDIT = prefs.edit();
-        prefEDIT.putString("NAME",Name);
-        prefEDIT.commit();
+
+    //TODO Artik burasi pbje paramtresi ile calisacak.Aldi objeyi arka tarda CustomPrefMNager klasi kaydedecek.Bu kod temizligi ve daginikligi sagl.
+    //TODO asagidaki Custom pref manager shared preferences a kaydedilecek olan veya kayitlari alacak olan tum islemleri yapacak kalstir.
+    public void SharedPrefSAVE(AdapterItem adapterItem) {
+        CustomePrefManager.saveItem(adapterItem);
     }
 }
