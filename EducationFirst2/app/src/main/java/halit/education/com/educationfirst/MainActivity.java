@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,8 +17,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import halit.education.com.educationfirst.controller.activity.ActivityFragment;
 import halit.education.com.educationfirst.controller.activity.DetailActivity;
 import halit.education.com.educationfirst.controller.adapter.CompanyAdapter;
+import halit.education.com.educationfirst.controller.adapter.TabsPagerAdapter;
 import halit.education.com.educationfirst.controller.managers.CustomePrefManager;
 import halit.education.com.educationfirst.model.AdapterItem;
 
@@ -40,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+           //TODO burda ikinci acititye gidecek gittigi yer bir fragment COntainer
+           //TODO iki tip fragment gosterimi varfdir birincisi budur adapter le gosterimi bu sekildedir.
+//TODO Sonradan buraya digerinide ekleyecegiz.
+                startActivity(new Intent(MainActivity.this, ActivityFragment.class));
+            }
+        });
 
         textView = (TextView) findViewById(R.id.descTxt);
         listView = (ListView) findViewById(R.id.listView);
